@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
@@ -42,9 +41,10 @@ const SignUpForm = () => {
         password
       );
       await createUserDocumentFromAuth(user, { displayName });
+
       resetFormFields();
     } catch (error) {
-      if (error.code !== "auth/email-already-in-use") {
+      if (error.code === "auth/email-already-in-use") {
         alert("can not create usser, email already in use");
       } else {
         console.log("user creation encountered error", error);
